@@ -34,6 +34,7 @@ export async function writeLumaEventsToBlob(events: LumaEvent[]): Promise<{ url:
   const result = await put(LUMA_EVENTS_BLOB_PATH, body, {
     access: 'public',
     addRandomSuffix: false,
+    allowOverwrite: true,
     contentType: 'application/json',
   })
   return { url: result.url }
