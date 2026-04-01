@@ -10,9 +10,11 @@ import { REGION_LABELS, type LumaEvent } from '@/data/events'
 export interface LumaEventCardProps {
   event: LumaEvent
   className?: string
+  /** First grid row(s): avoid lazy-loading the LCP cover (see Next.js Image LCP guidance). */
+  coverPriority?: boolean
 }
 
-function LumaEventCardComponent({ event, className = '' }: LumaEventCardProps) {
+function LumaEventCardComponent({ event, className = '', coverPriority = false }: LumaEventCardProps) {
   const reduced = useReducedMotion()
   const [imgLoaded, setImgLoaded] = useState(false)
 
@@ -56,7 +58,7 @@ function LumaEventCardComponent({ event, className = '' }: LumaEventCardProps) {
           src={event.coverImage}
           alt={coverAlt}
           fill
-          loading="lazy"
+          {...(coverPriority ? { priority: true } : { loading: 'lazy' as const })}
           decoding="async"
           onLoad={() => setImgLoaded(true)}
           className={`object-cover transition-[transform,opacity] duration-500 group-hover:scale-[1.02] ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}

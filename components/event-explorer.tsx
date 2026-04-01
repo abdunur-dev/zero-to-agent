@@ -134,7 +134,12 @@ export function EventExplorer({ events }: EventExplorerProps) {
           >
             {filtered.map((event, i) => (
               // Cards beyond the cap animate instantly — no stagger overhead
-              <LumaEventCard key={event.id} event={event} className={i >= MAX_STAGGER_ITEMS && !reduced ? '[--motion-duration:0s]' : ''} />
+              <LumaEventCard
+                key={event.id}
+                event={event}
+                className={i >= MAX_STAGGER_ITEMS && !reduced ? '[--motion-duration:0s]' : ''}
+                coverPriority={i < 4}
+              />
             ))}
           </motion.div>
         </AnimatePresence>

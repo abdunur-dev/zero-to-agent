@@ -8,7 +8,12 @@ import { isLumacdnCover, scrapeLumaEventPage } from '@/lib/firecrawl-luma'
 import { lumaSlugFromLink } from '@/lib/luma'
 import { readLumaEventsFromBlob, writeLumaEventsToBlob } from '@/lib/luma-blob'
 import { regionFromCountry } from '@/lib/luma-region'
-import { fetchSheetLumaRows, normalizeSubmittedOn, type SheetLumaRow } from '@/lib/sheet-luma'
+import {
+  fetchSheetLumaRowsWithStats,
+  normalizeSubmittedOn,
+  type SheetIngestStats,
+  type SheetLumaRow,
+} from '@/lib/sheet-luma'
 
 const FALLBACK_COVER =
   'https://images.lumacdn.com/event-covers/cy/ba4a3e7f-d013-4093-b74a-b89615d6feab.png'
@@ -77,16 +82,16 @@ export async function runLumaSheetSync(): Promise<{
   fromBlob: number
   fallback: number
   blobUrl: string | null
+  sheetStats: SheetIngestStats
 }> {
-  const sheetRows = await fetchSheetLumaRows()
+  const { rows: sheetRows, stats: sheetStats } = await fetchSheetLumaRowsWithStats()
   const staticBySlug = mapBySlug(lumaEvents)
   const blobPrev = await readLumaEventsFromBlob()
   const blobBySlug = blobPrev ? mapBySlug(blobPrev) : new Map<string, LumaEvent>()
 
-  const bySlugLast = new Map<string, SheetLumaRow>()
-  for (const row of sheetRows) {
-    bySlugLast.set(lumaSlugFromLink(row.link), row)
-  }
+  const bySlugLast = new Map<string, SheetLumaRow>(
+    sheetRows.map((row) => [lumaSlugFromLink(row.link), row]),
+  )
 
   const out: LumaEvent[] = []
   let scraped = 0
@@ -159,9 +164,12 @@ export async function runLumaSheetSync(): Promise<{
     try {
       const w = await writeLumaEventsToBlob(out)
       blobUrl = w?.url ?? null
-    } catch {
+    } catch (e) {
+      console.warn('[sync-luma-sheet] Blob write failed; /events will keep serving stale blob until the next successful write.', e)
       blobUrl = null
     }
+  } else if (out.length > 0 && !process.env.BLOB_READ_WRITE_TOKEN) {
+    console.warn('[sync-luma-sheet] BLOB_READ_WRITE_TOKEN missing; sync computed events but did not persist. /events may use cold path or old data.')
   }
 
   return {
@@ -171,5 +179,6 @@ export async function runLumaSheetSync(): Promise<{
     fromBlob,
     fallback,
     blobUrl,
+    sheetStats,
   }
 }

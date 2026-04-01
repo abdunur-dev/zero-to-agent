@@ -8,6 +8,20 @@ export interface SheetLumaRow {
   submittedOnRaw: string
 }
 
+/** Explains why sheet row count ≠ unique events on the site (non-Luma rows, duplicate URLs). */
+export type SheetIngestStats = {
+  /** Body rows in the CSV (excluding header). */
+  dataRowCount: number
+  /** Rows where column A is not a `luma.com/...` event URL (e.g. placeholders). */
+  skippedNonLuma: number
+  /** Rows with a valid Luma URL before deduping. */
+  validLumaRowCount: number
+  /** Extra rows dropped because the same slug appeared again (last row wins). */
+  duplicateSlugRowsMerged: number
+  /** Unique slugs — matches how many sheet-driven events the sync will try to resolve. */
+  uniqueSlugCount: number
+}
+
 /** Normalize common form variants to M/D/YYYY for `formatListingDate`. */
 export function normalizeSubmittedOn(raw: string): string {
   const t = raw.trim()
@@ -55,7 +69,14 @@ function isLumaEventLink(url: string): boolean {
   }
 }
 
-export async function fetchSheetLumaRows(): Promise<SheetLumaRow[]> {
+/**
+ * Reads the public sheet CSV: column A must be the Luma URL; C/D are optional metadata
+ * (sort + placeholder when Firecrawl fails). Event title/city/country come from Firecrawl in sync.
+ */
+export async function fetchSheetLumaRowsWithStats(): Promise<{
+  rows: SheetLumaRow[]
+  stats: SheetIngestStats
+}> {
   const res = await fetch(SHEET_EXPORT_CSV_URL, {
     headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ZeroToAgent/1.0)' },
   })
@@ -64,20 +85,55 @@ export async function fetchSheetLumaRows(): Promise<SheetLumaRow[]> {
   }
   const text = (await res.text()).replace(/^\uFEFF/, '')
   const lines = text.split(/\r?\n/).filter((l) => l.trim().length > 0)
-  if (lines.length < 2) return []
+  if (lines.length < 2) {
+    return {
+      rows: [],
+      stats: {
+        dataRowCount: 0,
+        skippedNonLuma: 0,
+        validLumaRowCount: 0,
+        duplicateSlugRowsMerged: 0,
+        uniqueSlugCount: 0,
+      },
+    }
+  }
 
+  const dataRowCount = lines.length - 1
+  let skippedNonLuma = 0
+  let duplicateSlugRowsMerged = 0
   const bySlugLast = new Map<string, SheetLumaRow>()
 
   for (let i = 1; i < lines.length; i++) {
     const cols = parseCsvLine(lines[i])
     const link = (cols[0] ?? '').trim()
-    if (!isLumaEventLink(link)) continue
+    if (!isLumaEventLink(link)) {
+      skippedNonLuma++
+      continue
+    }
     const submittedBy = (cols[2] ?? '').trim()
     const submittedOnRaw = (cols[3] ?? '').trim()
     const slug = link.replace(/^https:\/\/luma\.com\//i, '')
+    if (bySlugLast.has(slug)) duplicateSlugRowsMerged++
     const row: SheetLumaRow = { link: `https://luma.com/${slug}`, submittedBy, submittedOnRaw }
     bySlugLast.set(slug, row)
   }
 
-  return Array.from(bySlugLast.values())
+  const validLumaRowCount = bySlugLast.size + duplicateSlugRowsMerged
+  const uniqueSlugCount = bySlugLast.size
+
+  return {
+    rows: Array.from(bySlugLast.values()),
+    stats: {
+      dataRowCount,
+      skippedNonLuma,
+      validLumaRowCount,
+      duplicateSlugRowsMerged,
+      uniqueSlugCount,
+    },
+  }
+}
+
+export async function fetchSheetLumaRows(): Promise<SheetLumaRow[]> {
+  const { rows } = await fetchSheetLumaRowsWithStats()
+  return rows
 }

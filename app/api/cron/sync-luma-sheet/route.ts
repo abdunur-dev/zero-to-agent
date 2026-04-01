@@ -26,6 +26,7 @@ export async function GET(request: Request) {
       revalidated: 'luma-sheet',
       wroteBlob: Boolean(result.blobUrl),
       blobUrl: result.blobUrl,
+      sheet: result.sheetStats,
       counts: {
         total: result.events.length,
         scraped: result.scraped,
