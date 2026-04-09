@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FooterSocialLogos } from '@/components/footer-social-logos'
-import { DISCORD_INVITE_URL, DISCORD_LINK_LABEL } from '@/data/community'
+import { TELEGRAM_LINK, TELEGRAM_LINK_LABEL } from '@/data/community'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -63,7 +63,7 @@ export function Footer() {
               {[
                 { label: 'Zero to Agent Hub', href: 'https://community.vercel.com/host/zero-to-agent-2026' },
                 { label: 'Vercel Community', href: 'https://community.vercel.com' },
-                { label: DISCORD_LINK_LABEL, href: DISCORD_INVITE_URL },
+                { label: TELEGRAM_LINK_LABEL, href: TELEGRAM_LINK },
                 { label: 'GitHub Repo', href: 'https://github.com/abdunur-dev/zero-to-agent.git' },
               ].map((link) => (
                 <li key={link.href}>

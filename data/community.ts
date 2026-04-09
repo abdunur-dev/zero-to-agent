@@ -1,8 +1,8 @@
 /**
- * Zero to Agent community Discord.
- * Override with NEXT_PUBLIC_DISCORD_INVITE in .env.local if the invite URL changes.
+ * Zero to Agent community Telegram.
+ * Override with NEXT_PUBLIC_TELEGRAM_LINK in .env.local if the link changes.
  */
-export const DISCORD_INVITE_URL =
-  process.env.NEXT_PUBLIC_DISCORD_INVITE ?? 'https://discord.gg/BGAWhWYaC'
+export const TELEGRAM_LINK =
+  process.env.NEXT_PUBLIC_TELEGRAM_LINK ?? 'https://t.me/V0Group'
 
-export const DISCORD_LINK_LABEL = 'Zero to Agent Discord'
+export const TELEGRAM_LINK_LABEL = 'Zero to Agent Telegram'

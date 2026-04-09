@@ -23,7 +23,7 @@ export const faqItems: FaqItem[] = [
   {
     question: 'Where do I get help during an event?',
     answer:
-      "Every Zero to Agent event has mentors on-site. The Zero to Agent Discord and Vercel community forum are also active. For technical questions about the AI SDK, v0, or Next.js, the official docs have most answers. And this site's Resource Hub links to the most useful places.",
+      "Every Zero to Agent event has mentors on-site. The Zero to Agent Telegram and Vercel community forum are also active. For technical questions about the AI SDK, v0, or Next.js, the official docs have most answers. And this site's Resource Hub links to the most useful places.",
   },
   {
     question: 'Can I work on my project after the event?',
