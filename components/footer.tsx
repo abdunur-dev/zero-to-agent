@@ -20,7 +20,7 @@ export function Footer() {
                 className="rounded-lg"
               />
               <span className="font-[family-name:var(--font-geist-mono)] text-[11px] tracking-[0.2em] uppercase text-[var(--text)]">
-                ZERO TO AGENT
+                ZERO TO AGENT · ADDIS ABABA
               </span>
             </div>
             <p className="text-[12px] leading-[1.65] text-[var(--text-secondary)] max-w-[220px]">

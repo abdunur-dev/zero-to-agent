@@ -71,7 +71,7 @@ export function Navigation() {
               priority
             />
             <span className="font-[family-name:var(--font-geist-mono)] text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase text-[var(--text)] group-hover:text-[var(--accent)] transition-colors truncate max-w-[11rem] sm:max-w-none">
-              ZERO TO AGENT
+              ZERO TO AGENT · ADDIS ABABA
             </span>
           </Link>
 
