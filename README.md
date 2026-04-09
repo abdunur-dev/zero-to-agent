@@ -87,7 +87,7 @@ The **idea generator** on `/resources` streams suggestions via the Vercel AI SDK
 ## Getting started
 
 ```bash
-git clone https://github.com/New-Retr0/zero-to-agent.git
+git clone https://github.com/abdunur-dev/zero-to-agent.git
 cd zero-to-agent
 npm install
 npm run dev
@@ -176,6 +176,6 @@ Vercel, the Vercel design, Next.js, v0, and related marks, designs, and logos ar
 
 ## Contributing
 
-Issues and PRs are welcome. This is a community project: [github.com/New-Retr0/zero-to-agent](https://github.com/New-Retr0/zero-to-agent).
+Issues and PRs are welcome. This is a community project: [github.com/abdunur-dev/zero-to-agent](https://github.com/abdunur-dev/zero-to-agent.git).
 
 The repo may include **`.agents/`** skills and tooling for Cursor/Codex-style workflows; they are optional and not required to run the app.

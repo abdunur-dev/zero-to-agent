@@ -64,7 +64,7 @@ export function Footer() {
                 { label: 'Zero to Agent Hub', href: 'https://community.vercel.com/host/zero-to-agent-2026' },
                 { label: 'Vercel Community', href: 'https://community.vercel.com' },
                 { label: DISCORD_LINK_LABEL, href: DISCORD_INVITE_URL },
-                { label: 'GitHub Repo', href: 'https://github.com/New-Retr0/zero-to-agent' },
+                { label: 'GitHub Repo', href: 'https://github.com/abdunur-dev/zero-to-agent.git' },
               ].map((link) => (
                 <li key={link.href}>
                   <a
