@@ -28,8 +28,8 @@ function buildSyntheticEvent(
   return {
     id: `sheet-${slug}`,
     title: 'Zero to Agent',
-    city: 'New listing',
-    country: 'See Luma for details',
+    city: 'Zero to Agent',
+    country: 'Check Luma for details',
     region: 'americas',
     date: formatListingDate(normalized),
     coverImage: coverUrlForLink(link) ?? FALLBACK_COVER,

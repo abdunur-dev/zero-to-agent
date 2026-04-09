@@ -34,8 +34,8 @@ function buildSynthetic(
   return {
     id: `sheet-${slug}`,
     title: 'Zero to Agent',
-    city: 'New listing',
-    country: 'See Luma for details',
+    city: 'Zero to Agent',
+    country: 'Check Luma for details',
     region: 'americas',
     date: formatListingDate(normalized),
     coverImage: coverUrlForLink(link) ?? FALLBACK_COVER,
@@ -60,7 +60,7 @@ function titleCityFromExtracted(title: string | undefined, city: string | undefi
 }
 
 function isPlaceholderEvent(e: LumaEvent): boolean {
-  return e.city === 'New listing' || e.country === 'See Luma for details'
+  return e.city === 'Zero to Agent' || e.country === 'Check Luma for details'
 }
 
 function safeEventDateLabel(raw: string | undefined, fallbackMDY: string): string {
