@@ -2,6 +2,7 @@
   "name": "zero-to-agent",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true}); try{require('fs').rmSync('node_modules/.cache',{recursive:true,force:true})}catch(e){}\"",
     "dev:clean": "npm run clean && npm run dev",
