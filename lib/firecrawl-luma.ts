@@ -68,8 +68,8 @@ export async function scrapeLumaEventPage(lumaUrl: string): Promise<ExtractedLum
         },
       ],
       onlyMainContent: true,
-      waitFor: 5000,
-      timeout: 90000,
+      waitFor: 2000,
+      timeout: 30000,
     }),
   })
 
