@@ -148,7 +148,7 @@ export async function runLumaSheetSync(): Promise<{
     return buildSynthetic(link, row.submittedBy, row.submittedOnRaw)
   }
 
-  const concurrency = 4
+  const concurrency = 8
   for (let i = 0; i < slugs.length; i += concurrency) {
     const batch = slugs.slice(i, i + concurrency)
     const resolved = await Promise.all(
