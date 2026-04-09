@@ -96,7 +96,24 @@ export async function POST(request: Request) {
       temperature: 1.0,
     })
 
-    const response = result.toUIMessageStreamResponse()
+    const response = result.toUIMessageStreamResponse({
+      getErrorMessage: async (error) => {
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        
+        // Handle AI Gateway authentication errors
+        if (errorMessage.includes('customer_verification_required') || errorMessage.includes('credit card') || errorMessage.includes('verification')) {
+          return 'AI service requires account verification. Please add a payment method to your Vercel account.'
+        }
+
+        // Handle other AI Gateway errors
+        if (errorMessage.includes('AI Gateway')) {
+          return 'AI service temporarily unavailable. Try again in a moment.'
+        }
+
+        // Generic error fallback
+        return 'Failed to generate idea. Try again shortly.'
+      }
+    })
 
     response.headers.set('X-RateLimit-Limit', String(DAILY_LIMIT))
     response.headers.set('X-RateLimit-Remaining', String(remaining))
@@ -106,7 +123,7 @@ export async function POST(request: Request) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     
     // Handle AI Gateway authentication errors
-    if (errorMessage.includes('customer_verification_required') || errorMessage.includes('credit card')) {
+    if (errorMessage.includes('customer_verification_required') || errorMessage.includes('credit card') || errorMessage.includes('verification')) {
       return new Response(
         JSON.stringify({ error: 'AI service requires account verification. Please add a payment method to your Vercel account.' }),
         { status: 402, headers: { 'Content-Type': 'application/json' } }
