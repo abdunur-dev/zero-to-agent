@@ -157,7 +157,7 @@ export function Navigation() {
             <ThemeToggle />
 
             <a
-              href="https://github.com/New-Retr0/zero-to-agent"
+              href="https://github.com/abdunur-dev/zero-to-agent.git"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex w-8 h-8 items-center justify-center rounded-lg transition-colors hover:bg-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text)]"
@@ -280,7 +280,7 @@ export function Navigation() {
                 transition={{ delay: navLinks.length * 0.06 }}
               >
                 <a
-                  href="https://github.com/New-Retr0/zero-to-agent"
+                  href="https://github.com/abdunur-dev/zero-to-agent.git"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-[family-name:var(--font-geist-mono)] text-[14px] tracking-[0.25em] uppercase text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors"

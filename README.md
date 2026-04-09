@@ -87,7 +87,7 @@ The **idea generator** on `/resources` streams suggestions via the Vercel AI SDK
 ## Getting started
 
 ```bash
-git clone https://github.com/New-Retr0/zero-to-agent.git
+git clone https://github.com/abdunur-dev/zero-to-agent.git
 cd zero-to-agent
 npm install
 npm run dev
@@ -115,7 +115,7 @@ Values go in `.env.local` locally or in the Vercel project dashboard.
 | `CRON_SECRET` | Bearer secret for `/api/cron/sync-luma-sheet` (must match Vercel Cron auth). |
 | `FIRECRAWL_API_KEY` | Full automated Luma sheet scrape in cron (see `lib/luma-sync`). |
 | `BLOB_READ_WRITE_TOKEN` | Persist merged event JSON to Vercel Blob during cron. |
-| `NEXT_PUBLIC_DISCORD_INVITE` | Override default Discord invite (`data/community.ts`). |
+| `NEXT_PUBLIC_TELEGRAM_LINK` | Override default Telegram link (`data/community.ts`). |
 | `NEXT_PUBLIC_SITE_URL` | Non-production canonical URL override (preview / local). Production OG uses `https://zero-to-agent.community` from `lib/site-url.ts`. |
 
 Never commit real secrets. `.env.local` should stay gitignored.
@@ -141,7 +141,7 @@ Never commit real secrets. `.env.local` should stay gitignored.
 | Resource links & categories | `data/resources.ts` |
 | FAQ copy | `data/faq.ts` |
 | Event seed / slug → cover map | `data/events.ts` + sync pipeline in `lib/` |
-| Discord URL / label | `data/community.ts` or `NEXT_PUBLIC_DISCORD_INVITE` |
+| Telegram URL / label | `data/community.ts` or `NEXT_PUBLIC_TELEGRAM_LINK` |
 | Vercel social links (footer) | `data/vercel-social.ts` |
 | Site title, description, OG/Twitter text | `app/layout.tsx` |
 | OG **visual** (layout, fonts, colors) | `app/opengraph-image.tsx` + `assets/fonts/GeistPixel-Square.ttf` |
@@ -176,6 +176,6 @@ Vercel, the Vercel design, Next.js, v0, and related marks, designs, and logos ar
 
 ## Contributing
 
-Issues and PRs are welcome. This is a community project: [github.com/New-Retr0/zero-to-agent](https://github.com/New-Retr0/zero-to-agent).
+Issues and PRs are welcome. This is a community project: [github.com/abdunur-dev/zero-to-agent](https://github.com/abdunur-dev/zero-to-agent.git).
 
 The repo may include **`.agents/`** skills and tooling for Cursor/Codex-style workflows; they are optional and not required to run the app.
