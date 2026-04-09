@@ -4,7 +4,9 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   // Turbopack for faster local dev (Next 16 default for `next dev`)
-  turbopack: {},
+  turbopack: {
+    root: '.',
+  },
 
   compress: true,
 
