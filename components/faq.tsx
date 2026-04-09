@@ -25,16 +25,7 @@ export function FAQ() {
         <SectionReveal>
           <div className="mt-12 text-center">
             <p className="text-[13px] text-[var(--text-secondary)]">
-              Still have questions?{' '}
-              <a
-                href="https://community.vercel.com/host/zero-to-agent-2026"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--accent)] hover:underline"
-              >
-                Visit the Zero to Agent hub
-              </a>{' '}
-              or ask in the{' '}
+              Still have questions? Ask in the{' '}
               <a
                 href={TELEGRAM_LINK}
                 target="_blank"

@@ -13,15 +13,6 @@ export interface Resource {
 
 export const resources: Resource[] = [
   {
-    title: 'Zero to Agent Hub',
-    description: 'The official Vercel community hub for Zero to Agent events, updates, and resources.',
-    url: 'https://community.vercel.com/host/zero-to-agent-2026',
-    category: 'getting-started',
-    categoryLabel: 'Getting Started',
-    tags: ['Event', 'Community'],
-    brandMark: '▲',
-  },
-  {
     title: 'v0 by Vercel',
     description: 'Generate UI and full-stack scaffolds from text prompts. Your fastest path from idea to working prototype.',
     url: 'https://v0.dev',
