@@ -116,6 +116,7 @@ export function IdeaGenerator() {
   const isStreaming = isLoading
   const isNotConfigured = error?.message?.includes('not configured')
   const isRateLimited = error?.message?.includes('Rate limit') || (error && String(error).includes('429'))
+  const isPaymentRequired = error?.message?.includes('verification') || (error && String(error).includes('402'))
 
   const handleGenerate = useCallback(() => {
     if (exhausted) return
@@ -216,7 +217,7 @@ export function IdeaGenerator() {
           </AnimatePresence>
 
           <AnimatePresence>
-            {isRateLimited && (
+            {isPaymentRequired && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -224,13 +225,15 @@ export function IdeaGenerator() {
                 className="flex items-start gap-3 p-4 border border-[var(--border)] rounded-lg text-[var(--text-secondary)]"
               >
                 <AlertCircle size={14} className="flex-shrink-0 mt-0.5 text-[var(--warning)]" />
-                <p className="text-[12px] leading-[1.6]">Rate limit reached. Try again tomorrow.</p>
+                <div className="text-[12px] leading-[1.6]">
+                  <span className="text-[var(--text)]">AI service requires account verification.</span> Add a payment method to your Vercel account to enable this feature.
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
 
           <AnimatePresence>
-            {error && !isNotConfigured && !isRateLimited && (
+            {error && !isNotConfigured && !isRateLimited && !isPaymentRequired && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}

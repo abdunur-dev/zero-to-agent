@@ -27,7 +27,7 @@ const steps = [
     title: 'Pick one real problem',
     description: 'Not a demo. Not a showcase. A tool that solves something specific for real people. The narrower the scope, the faster you ship.',
     action: 'Browse resources',
-    actionHref: '/resources#idea-generator',
+    actionHref: '/resources',
     external: false,
   },
   {

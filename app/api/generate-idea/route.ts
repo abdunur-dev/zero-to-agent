@@ -86,19 +86,63 @@ export async function POST(request: Request) {
     )
   }
 
-  const result = streamText({
-    model: gateway('google/gemini-2.5-flash-lite'),
-    system: SYSTEM_PROMPT,
-    prompt:
-      'Generate one fresh AI agent idea for a Zero to Agent attendee. Make the Vercel stack line specific and varied — different products than a generic "Next.js + AI SDK" every time when another combo fits better.',
-    maxOutputTokens: 400,
-    temperature: 1.0,
-  })
+  try {
+    const result = streamText({
+      model: gateway('google/gemini-2.5-flash-lite'),
+      system: SYSTEM_PROMPT,
+      prompt:
+        'Generate one fresh AI agent idea for a Zero to Agent attendee. Make the Vercel stack line specific and varied — different products than a generic "Next.js + AI SDK" every time when another combo fits better.',
+      maxOutputTokens: 400,
+      temperature: 1.0,
+    })
 
-  const response = result.toUIMessageStreamResponse()
+    const response = result.toUIMessageStreamResponse({
+      getErrorMessage: async (error) => {
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        
+        // Handle AI Gateway authentication errors
+        if (errorMessage.includes('customer_verification_required') || errorMessage.includes('credit card') || errorMessage.includes('verification')) {
+          return 'AI service requires account verification. Please add a payment method to your Vercel account.'
+        }
 
-  response.headers.set('X-RateLimit-Limit', String(DAILY_LIMIT))
-  response.headers.set('X-RateLimit-Remaining', String(remaining))
+        // Handle other AI Gateway errors
+        if (errorMessage.includes('AI Gateway')) {
+          return 'AI service temporarily unavailable. Try again in a moment.'
+        }
 
-  return response
+        // Generic error fallback
+        return 'Failed to generate idea. Try again shortly.'
+      }
+    })
+
+    response.headers.set('X-RateLimit-Limit', String(DAILY_LIMIT))
+    response.headers.set('X-RateLimit-Remaining', String(remaining))
+
+    return response
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    
+    // Handle AI Gateway authentication errors
+    if (errorMessage.includes('customer_verification_required') || errorMessage.includes('credit card') || errorMessage.includes('verification')) {
+      return new Response(
+        JSON.stringify({ error: 'AI service requires account verification. Please add a payment method to your Vercel account.' }),
+        { status: 402, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // Handle other AI Gateway errors
+    if (errorMessage.includes('AI Gateway')) {
+      return new Response(
+        JSON.stringify({ error: 'AI service temporarily unavailable. Try again in a moment.' }),
+        { status: 503, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // Generic error fallback
+    console.error('[generate-idea] Unexpected error:', error)
+    return new Response(
+      JSON.stringify({ error: 'Failed to generate idea. Try again shortly.' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    )
+  }
 }
