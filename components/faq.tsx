@@ -2,7 +2,7 @@ import { SectionReveal } from './section-reveal'
 import { SectionHeading } from './ui/section-heading'
 import { Accordion } from './ui/accordion'
 import { faqItems } from '@/data/faq'
-import { DISCORD_INVITE_URL, DISCORD_LINK_LABEL } from '@/data/community'
+import { TELEGRAM_LINK, TELEGRAM_LINK_LABEL } from '@/data/community'
 
 export function FAQ() {
   return (
@@ -36,12 +36,12 @@ export function FAQ() {
               </a>{' '}
               or ask in the{' '}
               <a
-                href={DISCORD_INVITE_URL}
+                href={TELEGRAM_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--accent)] hover:underline"
               >
-                {DISCORD_LINK_LABEL}
+                {TELEGRAM_LINK_LABEL}
               </a>
               .
             </p>
