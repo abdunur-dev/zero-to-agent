@@ -1,4 +1,4 @@
-import { DISCORD_INVITE_URL } from '@/data/community'
+import { TELEGRAM_LINK } from '@/data/community'
 
 export interface Resource {
   title: string
@@ -113,10 +113,10 @@ export const resources: Resource[] = [
     brandMark: '▲',
   },
   {
-    title: 'Zero to Agent Discord',
+    title: 'Zero to Agent Telegram',
     description:
-      'Our community server for agent builders — quick questions, collaboration, and chat alongside events.',
-    url: DISCORD_INVITE_URL,
+      'Our community group for agent builders — quick questions, collaboration, and chat alongside events.',
+    url: TELEGRAM_LINK,
     category: 'community',
     categoryLabel: 'Community',
     tags: ['Community', 'Chat'],
