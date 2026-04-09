@@ -54,22 +54,7 @@ export function Hero() {
           Learn the tools, find events, discover what others are building, and start shipping.
         </p>
 
-        <p
-          className={`text-[14px] md:text-[15px] text-[var(--text-secondary)] leading-[1.6] mb-6 max-w-xl mx-auto ${anim}`}
-          style={{ animationDelay: '200ms' }}
-        >
-          <span className="text-[var(--text-dim)]">Official program hub — </span>
-          <a
-            href="https://community.vercel.com/host/zero-to-agent-2026"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[var(--accent)] font-medium hover:underline underline-offset-4"
-          >
-            submissions, prizes, and updates
-            <ExternalLink size={14} className="opacity-80" aria-hidden />
-          </a>
-          <span className="text-[var(--text-dim)]"> on Vercel Community.</span>
-        </p>
+
 
         {/* CTAs */}
         <div

@@ -151,21 +151,10 @@ export function EventExplorer({ events }: EventExplorerProps) {
         )}
 
         <SectionReveal>
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border)] pt-8">
+          <div className="mt-10 border-t border-[var(--border)] pt-8">
             <p className="max-w-xl text-[13px] text-[var(--text-dim)]">
-              Events organized by Vercel × Google DeepMind. RSVP on each host’s Luma listing. Submit
-              your build and enter the global competition on the hub — final deadline May 3, 2026
-              (see hub for details).
+              Events organized by Vercel × Google DeepMind. RSVP on each host's Luma listing.
             </p>
-            <a
-              href="https://community.vercel.com/host/zero-to-agent-2026"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.12em] text-[var(--accent)] hover:underline"
-            >
-              Official Hub
-              <ExternalLink size={11} />
-            </a>
           </div>
         </SectionReveal>
       </div>
