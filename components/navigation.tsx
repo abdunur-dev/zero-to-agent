@@ -20,7 +20,6 @@ export const resourcesSectionLinks = [
   { href: '/resources#resource-hub', label: 'Resource Hub' },
   { href: '/resources#vercel-toolbox', label: 'Vercel Toolbox' },
   { href: '/resources#explainer', label: 'Explainer' },
-  { href: '/resources#idea-generator', label: 'Idea generator' },
 ] as const
 
 export function Navigation() {
